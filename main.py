@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from random import choice, randint, shuffle
-import pyperclip
+from pyperclip import copy
 import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 # Password Generator Project
@@ -22,7 +22,8 @@ def generate_password():
     shuffle(password_list)
     password = "".join(password_list)
     password_entry.insert(0, f"{password}")
-    pyperclip.copy(f"{password}")
+    copy(f"{password}")
+
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -57,6 +58,8 @@ def save():
             password_entry.delete(0, END)
 
 # ---------------------------- FIND PASSWORD -------------------------- #
+
+
 def find_password():
     website = website_entry.get()
     try:
@@ -67,9 +70,9 @@ def find_password():
         messagebox.showinfo(title="Error", message="No Data File Found.")
     else:
         if website in data:
-                email = data[website]["email"]
-                password = data[website]["password"]
-                messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
+            email = data[website]["email"]
+            password = data[website]["password"]
+            messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
         else:
             messagebox.showinfo(title="Error", message=f"No details for {website} exists.")
 
@@ -112,4 +115,3 @@ add_button.grid(column=1, row=4, columnspan=2)
 search_button = Button(text="Search", width=10, command=find_password)
 search_button.grid(column=2, row=1)
 window.mainloop()
-
